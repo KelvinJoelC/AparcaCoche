@@ -59,11 +59,13 @@ public class Principal {
 
                     break;
                 case 5:
-                    preguntacoordenadas();
+                    System.out.println("Digame las coordenadas del vehiculo que desea quitar\n");
                     coorX= teclado.nextInt();
                     coorY= teclado.nextInt();
                     if (comprobarParkingS(aparcamiento,coorY,coorX) == true)
                             quitarVehiculo(aparcamiento,coorY,coorX);
+                        else
+                        System.out.println("No se encuentra ningún vehiculo ahí\n");
                     break;
                 case 6:
                     break;
