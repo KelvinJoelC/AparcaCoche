@@ -40,17 +40,19 @@ public class Principal {
                         añadirCoche(c, aparcamiento, coorY, coorX);
                     }
                     else
-                        System.out.println("No se puede aparacar ahí\n");
+                        System.out.println("No se puede aparcar ahí\n");
 
                     break;
                 case 3:
                     preguntacoordenadas();
                     coorX= teclado.nextInt();
                     coorY= teclado.nextInt();
-                    if (comprobarParkingE(aparcamiento,coorY,coorX) == true)
-                        añadirMoto(aparcamiento,coorY, coorX);
+                    if (comprobarParkingE(aparcamiento,coorY,coorX) == true) {
+                        Motos m = new Motos(pedirDatoMat(), pedirDatoMar(), pedirDatoMod());
+                        añadirMoto(aparcamiento, coorY, coorX);
+                    }
                     else
-                        System.out.println("No se puede aparacar ahí\n");
+                        System.out.println("No se puede aparcar ahí\n");
 
                     break;
                 case 4:
@@ -60,7 +62,7 @@ public class Principal {
                     if (comprobarParkingE(aparcamiento,coorY,coorX) == true)
                         añadirAutobus(aparcamiento,coorY, coorX);
                     else
-                        System.out.println("No se puede aparacar ahí\n");
+                        System.out.println("No se puede aparcar ahí\n");
 
                     break;
                 case 5:
@@ -70,16 +72,16 @@ public class Principal {
                     if (comprobarParkingS(aparcamiento,coorY,coorX) == true)
                             quitarVehiculo(aparcamiento,coorY,coorX);
                         else
-                        System.out.println("No se encuentra ningún vehiculo ahí\n");
+                        System.out.println("No se encuentra ningún vehículo ahí\n");
                     break;
                 case 6:
-                    System.out.println("La recaudacion toal es: " + recaudacion + "€");
+                    System.out.println("La recaudación total es: " + recaudacion + "€");
                     break;
                 case 7:
                     System.out.println("Gracias por usar el programa");
                     break;
                 default:
-                    System.out.println("Numero no permitido");
+                    System.out.println("Número no permitido");
                     break;
             }
         } while (eleccion != 7);
@@ -126,11 +128,13 @@ public class Principal {
 
         System.out.print("Introduce Dni: ");
         c.setDni(pedirDatoDNI());
+        c.setElectrico(pedirElectro());
         matriz[i][j] = 'C';
         recaudacion += 5;
 
     }
     static void añadirMoto(char[][] matriz, int i, int j) {
+        System.out.print("Introduce cilindrada: ");
         matriz[i][j] = 'M';
         recaudacion += 3;
     }
@@ -171,6 +175,23 @@ public class Principal {
     static String pedirDatoDNI(){
         Scanner teclado = new Scanner(System.in);
         return teclado.next();
+    }
+    static boolean pedirElectro(){
+        char puede ;
+
+        Scanner teclado = new Scanner(System.in);
+        do{
+        System.out.print("Coche electrico ? Y= Sí o N= No -> ");
+        puede = teclado.nextLine().charAt(0);
+          }while(puede != 'Y' || puede == 'N');
+        if(puede == 'Y')
+        return true;
+        else
+        return false;
+
+
+
+
     }
 
 
