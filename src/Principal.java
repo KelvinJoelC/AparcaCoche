@@ -1,20 +1,22 @@
 import java.util.Scanner;
 
 public class Principal {
+    static int filas = 5;
+    static int col = 10;
+    static int eleccion;
+    static int coorX;
+    static int coorY;
+    static int recaudacion = 0;
 
     public static void main(String[] args) {
-        int filas = 5;
-        int col = 10;
-        int eleccion;
-        int coorX;
-        int coorY;
+
 
         char[][] aparcamiento = new char[filas][col];
         Scanner teclado = new Scanner(System.in);
         inicializarAparcamiento(aparcamiento, filas, col);
 
         do {
-            System.out.println("" +
+            System.out.print("" +
                     "Que deseas realizar: \n" +
                     "1.- Ver el parking.\n" +
                     "2.- Entrada de un coche.\n" +
@@ -22,7 +24,8 @@ public class Principal {
                     "4.- Entrada de un autobus.\n" +
                     "5.- Salida de un vehiculo.\n" +
                     "6.- Ver recaudación.\n" +
-                    "7.- Salir del programa.");
+                    "7.- Salir del programa.\n\n" +
+                    "Introduzca el numero seleccionado: ");
             eleccion = teclado.nextInt();
             switch (eleccion) {
                 case 1:
@@ -32,8 +35,10 @@ public class Principal {
                         preguntacoordenadas();
                         coorX= teclado.nextInt();
                         coorY= teclado.nextInt();
-                    if (comprobarParkingE(aparcamiento,coorY,coorX) == true)
-                        añadirCoche(aparcamiento,coorY, coorX);
+                    if (comprobarParkingE(aparcamiento,coorY,coorX) == true) {
+                        Coches c= new Coches(pedirDatoMat(),pedirDatoMar(),pedirDatoMod());
+                        añadirCoche(c, aparcamiento, coorY, coorX);
+                    }
                     else
                         System.out.println("No se puede aparacar ahí\n");
 
@@ -59,7 +64,7 @@ public class Principal {
 
                     break;
                 case 5:
-                    System.out.println("Digame las coordenadas del vehiculo que desea quitar\n");
+                    System.out.print("Digame las coordenadas del vehiculo que desea quitar: ");
                     coorX= teclado.nextInt();
                     coorY= teclado.nextInt();
                     if (comprobarParkingS(aparcamiento,coorY,coorX) == true)
@@ -68,6 +73,7 @@ public class Principal {
                         System.out.println("No se encuentra ningún vehiculo ahí\n");
                     break;
                 case 6:
+                    System.out.println("La recaudacion toal es: " + recaudacion + "€");
                     break;
                 case 7:
                     System.out.println("Gracias por usar el programa");
@@ -116,19 +122,22 @@ public class Principal {
         else return true ;
     }
 
-    static void añadirCoche(char[][] matriz, int i, int j) {
+    static void añadirCoche(Coches c, char[][] matriz, int i, int j) {
 
+        System.out.print("Introduce Dni: ");
+        c.setDni(pedirDatoDNI());
         matriz[i][j] = 'C';
+        recaudacion += 5;
 
     }
     static void añadirMoto(char[][] matriz, int i, int j) {
         matriz[i][j] = 'M';
-
+        recaudacion += 3;
     }
     static void añadirAutobus(char[][] matriz, int i, int j) {
 
         matriz[i][j] = 'A';
-
+        recaudacion += 10;
     }
     static void preguntacoordenadas() {
         System.out.println("¿Que posición quieres aparcar? (x:(0-9), y:(0-4))");
@@ -140,8 +149,30 @@ public class Principal {
         else return false ;
     }
     static void quitarVehiculo(char[][] matriz, int i, int j){
+
         matriz[i][j] = ' ';
     }
+
+    static String pedirDatoMat(){
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Matricula: ");
+        return teclado.next();
+    }
+    static String pedirDatoMod(){
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Modelo: ");
+        return teclado.next();
+    }
+    static String pedirDatoMar(){
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Marca: ");
+        return teclado.next();
+    }
+    static String pedirDatoDNI(){
+        Scanner teclado = new Scanner(System.in);
+        return teclado.next();
+    }
+
 
 
 }
