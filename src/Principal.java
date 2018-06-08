@@ -108,7 +108,7 @@ public class Principal {
                 else if (i == 1 && j == 0)
                     matriz[i][j] = 'E';
                 else if (i == 3 && j == 0)
-                    matriz[i][j] = 'S';
+                    matriz[i][j] = 'S';   
                 else if ((i == 0 && matriz[i][j] != 'X') || (i == 4 && matriz[i][j] != 'X') || (j == 9 && matriz[i][j] != 'X'))
                     matriz[i][j] = 'P';
                 else matriz[i][j] = ' ';
